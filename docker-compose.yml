@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build: ./services/auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+
+  payment-service:
+    build: ./services/payment-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+    depends_on:
+      - auth-service
+      - payment-service
